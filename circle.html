@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Circles</title>
+
+<!--links to external files-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script type="text/javascript" src="js/paper.js"></script>
+<!--end of links to external files-->
+
+<!--start of entire js section for circle-->
+<!--js for circle-->
+<script type="text/paperscript" canvas="canvas-circle">
+document.getElementById('canvas-circle').style.display = 'none';
+document.getElementById('button-circle').style.display = 'none';
+	
+	function onMouseDrag(event) {
+		// The radius is the distance between the position
+		// where the user clicked and the current position
+		// of the mouse.
+		var path = new Path.Circle({
+			center: event.downPoint,
+			radius: (event.downPoint - event.point).length,
+			
+			strokeColor: 'red'
+		});
+
+		// Remove this path on the next drag event:
+		path.removeOnDrag();
+	};
+
+	// clears graphics
+      document.getElementById('clear').addEventListener('click', function() {
+        project.clear() 
+      }, true);
+
+</script>
+<!--end of js for circle-->
+
+<!--js for button toggle circle-->
+<script>
+ $(document).ready(function(){
+      $("button.toggler-circle").click(function(){
+        $("#clicktotoggle-circle").toggleClass("maximize");
+        $(this).html($(this).html() == "Circle Tool On" ? "Circle Tool Off" : "Circle Tool On");
+      });
+    });
+</script>
+<!--end of js for button toggle circle-->
+
+<!--js for div toggle-->
+<script>
+$(document).ready(function(){
+  $("#clicktotoggle-circle").click(function(){
+    $(".toggle-circle").toggle();
+  });
+});
+</script>
+<!--end of js for div toggle-->
+<!--end of of entire js section for circle-->
+
+<style>
+/*start of entire css for circle*/
+.toggler-circle
+{
+height:40px;
+width:150px;
+margin:10px 0 10px 90px;
+}
+#canvas-circle
+{
+width:800px;
+height:600px;
+border:1px solid #ccc;
+position: absolute;
+top:70px;
+left:100px;
+z-index:200;
+}
+
+#button-circle {
+position: absolute;
+top: 80px;
+left: 110px;
+z-index:600;
+}
+#button-circle > input {
+padding: 10px;
+display: block;
+margin-top: 5px;
+}
+/*start of entire css for circle*/
+</style>
+
+</head>
+<body>
+
+<!--start of entire html for circle-->
+<div id="clicktotoggle-circle">
+	<div>
+		<button class="toggler-circle">Circle Tool Off</button>
+	</div>
+</div>
+
+<canvas id="canvas-circle" class="toggle-circle"></canvas>
+
+<div id="button-circle" class="toggle-circle">
+  <input type="button" id="clear" value="Clear">
+</div>
+<!--end of entire html for circle-->
+
+</body>
+</html>

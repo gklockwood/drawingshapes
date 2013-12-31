@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lines</title>
+
+<!--links to external files-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script type="text/javascript" src="js/paper.js"></script>
+<!--end of links to external files-->
+
+<!--start of entire js section for line-->
+<!--js for line-->
+<script type="text/paperscript" canvas="canvas-line">
+document.getElementById('canvas-line').style.display = 'none';
+document.getElementById('button-line').style.display = 'none';
+
+  var myPath;
+
+function onMouseDown(event) {
+  // The mouse was clicked, so let's put a newly created Path into
+  // myPath, give it the color black and add the location as the
+  // path's first segment.
+  myPath = new Path();
+  myPath.strokeColor = 'red';
+  myPath.add(event.point);
+}
+
+function onMouseUp(event) {
+  // The mouse was released, so we add the new location as the end
+  // segment of the line.
+  myPath.add(event.point);
+}
+
+function onClick(event){
+    if(clearCanvas && project.activeLayer.hasChildren()){
+        project.activeLayer.removeChildren();
+        clearCanvas = true;
+    }
+}
+
+ // clears graphics
+      document.getElementById('clear-line').addEventListener('click', function() {
+        project.clear() 
+      }, true);
+
+</script>
+<!--end of js for line-->
+
+<!--js for button toggle line-->
+<script>
+ $(document).ready(function(){
+      $("button.toggler-line").click(function(){
+        $("#clicktotoggle-line").toggleClass("maximize");
+        $(this).html($(this).html() == "Line Tool On" ? "Line Tool Off" : "Line Tool On");
+      });
+    });
+</script>
+<!--end of js for button toggle line-->
+
+<!--js for div toggle line-->
+<script>
+$(document).ready(function(){
+  $("#clicktotoggle-line").click(function(){
+    $(".toggle-line").toggle();
+  });
+});
+</script>
+<!--end of js for div toggle line-->
+<!--start of entire js section for line-->
+
+<style>
+/*start of entire CSS for line*/
+.toggler-line
+{
+height:40px;
+width:150px;
+margin:10px 0 10px 300px;
+}
+#canvas-line
+{
+width:800px;
+height:600px;
+border:1px solid #ccc;
+position: absolute;
+top:70px;
+left:100px;
+z-index:100;
+}
+#button-line {
+position: absolute;
+top: 80px;
+left: 110px;
+z-index:600;
+}
+#button-line > input {
+padding: 10px;
+display: block;
+margin-top: 5px;
+}
+/*end of entire CSS for line*/
+</style>
+
+</head>
+<body>
+
+<!--start of entire html for Line-->
+<div id="clicktotoggle-line" >
+  <div>
+    <button class="toggler-line">Line Tool Off</button>
+  </div>
+</div>
+
+<canvas id="canvas-line" class="toggle-line"></canvas>
+
+<div id="button-line" class="toggle-line">
+  <input type="button" id="clear-line" value="Clear">
+</div>
+<!--end of entire html for Line-->
+
+</body>
+</html>
